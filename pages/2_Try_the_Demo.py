@@ -53,6 +53,97 @@ def metrics_row(gt_file, result_rgb):
 st.page_link("app.py", label="← Home", icon="🏠")
 st.markdown('<div class="eyebrow">LIVE DEMO · FREQUENCY DOMAIN</div>', unsafe_allow_html=True)
 st.markdown("# Try It")
+
+with st.expander("📘 Beginner's Guide: Terms and Controls", expanded=False):
+    st.markdown("""
+    ### Essential image-processing terms
+
+    **FFT (Fast Fourier Transform):** A fast mathematical method
+    for representing image variations as spatial frequencies.
+
+    **Spatial domain:** The normal image made of pixels.
+
+    **Frequency domain:** A representation showing how quickly
+    brightness changes across an image.
+
+    **Spectrum:** A visualization of the distribution and strength
+    of spatial frequencies in an image.
+
+    **Filter mask:** A map specifying which frequencies should be
+    preserved, reduced, or amplified.
+
+    **Low frequencies:** Slowly changing brightness and broad image
+    structures. These are not always haze; they can also represent
+    legitimate image content.
+
+    **High frequencies:** Rapid brightness changes, such as edges,
+    fine textures, and some noise.
+
+    ### Dehazing controls
+
+    **Cutoff D0 (cycles/px):** Controls the frequency scale at which
+    the homomorphic filter changes its response. The effect depends
+    on the filter implementation; compare results rather than
+    assuming one value is always best.
+
+    **Gamma low (γ low):** The filter response associated with
+    low frequencies. Lower values generally suppress those
+    components more strongly.
+
+    **Gamma high (γ high):** The filter response associated with
+    high frequencies. Higher values generally emphasize fine
+    variations, but may also amplify noise.
+
+    **Colour mode — RGB:** Processes the colour channels separately.
+
+    **Colour mode — luminance:** Applies the filtering to image
+    brightness while aiming to preserve the colour information.
+
+    ### Rain streak removal controls
+
+    **Streak angle:** The estimated or manually selected orientation
+    of the rain streaks. The meaning of the angle depends on the
+    convention used by the algorithm.
+
+    **Band width:** Controls the width of the frequency region
+    suppressed by the notch filter. A wider band may remove more
+    streak-related energy but can also erase genuine image details.
+
+    **Protected low-frequency radius:** Controls the central frequency
+    region that the notch mask is designed to protect.
+
+    **Auto-detect streak angle:** Lets the algorithm estimate the
+    streak direction from the image instead of relying on a manual
+    setting.
+
+    **Bright-only:** Uses a constraint intended to prevent the
+    restoration step from making pixels brighter than their input
+    values. This may also limit recovery of legitimate details.
+
+    ### Evaluation terms
+
+    **Ground truth:** A clean reference image showing the same scene.
+    It should be correctly aligned with the restored image.
+
+    **PSNR (Peak Signal-to-Noise Ratio):** A numerical measure based
+    on pixel-level error. When images are comparable, a higher value
+    generally indicates lower error. It is measured in decibels (dB).
+
+    **SSIM (Structural Similarity Index):** A metric comparing image
+    structure, contrast, and luminance. Values closer to 1 generally
+    indicate greater similarity.
+
+    **Important:** PSNR and SSIM require a suitable reference image.
+    They do not independently prove that a restoration looks natural.
+
+    ### Practical advice
+
+    1. Start with the default settings.
+    2. Change one parameter at a time.
+    3. Compare the original and restored images at the same scale.
+    4. Watch for blurred edges, artificial halos, and excessive noise.
+    """)
+
 st.markdown(
     '<p style="color:#93A5B1; max-width:700px;">Both problems are solved in the '
     'Fourier domain. Rain streaks are near-vertical lines, so their energy sits '
